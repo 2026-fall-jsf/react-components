@@ -1,6 +1,6 @@
-import './App.css'
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';  
-
+import { PizzaToppings } from './PizzaToppings';
 
 const App = () => {
 
@@ -9,6 +9,7 @@ const App = () => {
         <h1>
             our react component!!!
         </h1>
+        <PizzaToppings />
     </div>
   );
 };
