@@ -87,7 +87,25 @@ export const PizzaToppings = () => {
           </Button>
         </div>
         <Form className="mt-3">
-          <Form.Check label="Pepperoni (2.33)" />
+          {availablePizzaToppings.map(
+            x => (
+              <Form.Check
+                label={`${x.name} ($${x.price.toFixed(2)})`}
+                checked={x.checked}
+                onChange={() =>
+                    setAvailablePizzaToppings(
+                      availablePizzaToppings.map(y => ({
+                        ...y,
+                        checked: y === x ? 
+                          !y.checked 
+                          : y.checked,
+                      }))
+                    )
+                  }
+                />
+            )
+          )
+        }
         </Form>
 
         <h4>Total: ${ total.toFixed(2) }</h4>
