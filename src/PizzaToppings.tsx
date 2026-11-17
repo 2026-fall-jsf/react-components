@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/button";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const PizzaToppings = () => {
   //
@@ -22,7 +23,7 @@ export const PizzaToppings = () => {
           Choose pizza toppings...
         </Card.Title>
         <div
-         className="d-flex-row gap-2"
+          className="d-flex flex-row gap-2 mb-3"
         >
           <Button
             variant="outline-primary"
@@ -33,8 +34,18 @@ export const PizzaToppings = () => {
             variant="outline-secondary"
           >
             None
-          </Button>
+          </Button>          
         </div>
+        <Form
+          className="mb-3"
+        >
+          <Form.Check 
+            label="Pepperoni ($2.33)"
+          />
+        </Form>
+        <h4>
+          Total: $9.99
+        </h4>
       </Card.Body>
     </Card>
   );
