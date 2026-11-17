@@ -1,4 +1,5 @@
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button"
 
 export const PizzaToppings = () => {
     //
@@ -21,6 +22,20 @@ export const PizzaToppings = () => {
                 <Card.Title>
                     Choose pizza toppings
                 </Card.Title>
+                <div
+                    className="d-flex flex-row gap-2"
+                >
+                    <Button
+                        variant="outline-primary"
+                    >
+                        All
+                    </Button>
+                    <Button
+                        variant="outline-secondary"
+                    >
+                        None
+                    </Button>
+                </div>
             </Card.Body>
         </Card>
     );
