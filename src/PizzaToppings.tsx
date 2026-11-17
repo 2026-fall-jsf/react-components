@@ -41,13 +41,13 @@ export const PizzaToppings = () => {
   //
   const total = availablePizzaToppings
 
-  .filter(
-    x => x.checked
-  )
-  .reduce(
-    (acc, x) => acc + x.price,
+    .filter(
+      x => x.checked
+    )
+    .reduce(
+      (acc, x) => acc + x.price,
       0,
-  )
+    )
 
   //
   // Return the jsx...
@@ -99,19 +99,41 @@ export const PizzaToppings = () => {
           </Button>
         </div>
 
-        <Form>
-          <div className="mb-3">
-            <Form.Check
-              label="Pepperoni ($2.33)"
-            />
-          </div>
+        <Form
+          className="mb-3"
+        >
+          {
+            availablePizzaToppings.map(
+              x => (
+                <Form.Check
+                  key={x.name}
+                  id={x.name}
+                  label={`${x.name} ($${x.price.toFixed(2)})`}
+                  checked={x.checked}
+                  onChange={
+                    () => setAvailablePizzaToppings(
+                      availablePizzaToppings.map(
+                        y => (
+                          {
+                            ...y,
+                            checked: y === x
+                              ? !y.checked
+                              : y.checked
+                          }
+                        )
+                      )
+                    )
+                  }
+                />
+              )
+            )
+          }
         </Form>
         <h4
           className="mb-3"
         >
           Total: ${ total.toFixed(2) }
         </h4>
-
       </Card.Body>
     </Card>
   );
