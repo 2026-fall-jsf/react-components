@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
 
 export const PizzaToppings = () => {
   //
@@ -35,6 +36,20 @@ export const PizzaToppings = () => {
             None
           </Button>
         </div>
+
+        <Form>
+          <div className="mb-3">
+            <Form.Check
+              label="Pepperoni ($2.33)"
+            />
+          </div>
+        </Form>
+        <h4
+          className="mb-3"
+        >
+          Total: $9.99
+        </h4>
+
       </Card.Body>
     </Card>
   );
