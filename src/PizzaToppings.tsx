@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {useState} from "react";
+import { useState } from "react";
 
 const dummyPizzaToppingsFromApi = [
   {
@@ -15,37 +15,40 @@ const dummyPizzaToppingsFromApi = [
   {
     name: "Extra Cheese",
     price: 0.99,
-  }
-]
+  },
+];
 
 export const PizzaToppings = () => {
   //
   // React hooks, useState, useEffect, useNav, b, b, blah...
   //
-
-  const [availablePizzaToppings, setAvaliablePizzaToppings] = useState(
+  const [availablePizzaToppings, setAvailablePizzaToppings] = useState(
     dummyPizzaToppingsFromApi.map(
       x => (
         {
           ...x,
-          checked: true,
+          checked: false,
         }
       )
     )
   );
 
+  // bad, bad, bad, duplicated state, squint ! ! !
+  // const [total, setTotal] = useState(0);
+
   //
   // Calculated or derived state, and other helper functions and code...
   //
-const total = availablePizzaToppings
-  .filter(
-    x => x.checked
-  )
-  .reduce(
-    (acc, x) => acc + x.price,
-    0,
-  )
-;
+  const total = availablePizzaToppings
+    .filter(
+      x => x.checked
+    )
+    .reduce(
+      (acc, x) => acc + x.price,
+      0,
+    )
+  ;
+
   //
   // Return the jsx...
   //
@@ -63,7 +66,7 @@ const total = availablePizzaToppings
           <Button
             variant="outline-primary"
             onClick={
-              () => setAvaliablePizzaToppings(
+              () => setAvailablePizzaToppings(
                 availablePizzaToppings.map(
                   x => (
                     {
@@ -79,8 +82,8 @@ const total = availablePizzaToppings
           </Button>
           <Button
             variant="outline-secondary"
-             onClick={
-              () => setAvaliablePizzaToppings(
+            onClick={
+              () => setAvailablePizzaToppings(
                 availablePizzaToppings.map(
                   x => (
                     {
