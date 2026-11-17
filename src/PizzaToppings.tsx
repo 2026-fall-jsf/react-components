@@ -1,16 +1,51 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
+import { useState } from "react";
+
+const dummyPizzaToppingsFromAPI = [
+    {
+        name: "Pepperoni",
+        price: 3.50,
+    },
+    {
+        name: "Sausage",
+        price: 1.99,
+    },
+    {
+        name: "Extra Cheese",
+        price: 0.99,
+    },
+]
 
 export const PizzaToppings = () => {
     //
     // React hooks, useState, useEffect, useNav, starts with "use"
     //
 
+    const [availablePizzaToppings, setAvailablePizzaToppings] = useState(
+        dummyPizzaToppingsFromAPI.map(
+            x => (
+                {
+                    ...x,
+                    checked: false,
+                }
+            )
+        )
+    );
+
     //
     // Calculated or derived state and other helper functions and code
     //
+    const total = availablePizzaToppings
+        .filter(
+            x => x.checked
+        )
 
+        .reduce(
+            (acc, x) => acc + x.price,
+            0,
+        )
     //
     // Return the jsx
     //
@@ -28,11 +63,35 @@ export const PizzaToppings = () => {
                 >
                     <Button
                         variant="outline-primary"
+                        onClick={
+                            () => setAvailablePizzaToppings(
+                                availablePizzaToppings.map(
+                                    x => (
+                                        {
+                                            ...x,
+                                            checked: true,
+                                        }
+                                    )
+                                )
+                            )
+                        }
                     >
                         All
                     </Button>
                     <Button
                         variant="outline-secondary"
+                        onClick={
+                            () => setAvailablePizzaToppings(
+                                availablePizzaToppings.map(
+                                    x => (
+                                        {
+                                            ...x,
+                                            checked: false,
+                                        }
+                                    )
+                                )
+                            )
+                        }
                     >
                         None
                     </Button>
@@ -45,7 +104,7 @@ export const PizzaToppings = () => {
                     </Form.Check>
                 </Form>
                 <h4>
-                    Total: $8.99
+                    Total: ${total.toFixed(2)}
                 </h4>
             </Card.Body>
         </Card>
