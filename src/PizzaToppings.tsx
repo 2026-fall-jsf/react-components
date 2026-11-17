@@ -1,3 +1,4 @@
+import  Button  from "react-bootstrap/Button";
 import Card  from "react-bootstrap/Card";
 
 
@@ -23,6 +24,20 @@ export const PizzaToppings = () => {
                 <Card.Title>
                 Choose your pizza toppings. . . .
                 </Card.Title>
+                <div
+                    className="d-flex flex-row gap-3"
+                >
+                    <Button
+                        variant="outline-primary"
+                    >
+                        All
+                    </Button>
+                    <Button
+                        variant="outline-secondary"
+                    >    
+                        None
+                    </Button>
+                </div>
             </Card.Body>
         </Card>
     );
