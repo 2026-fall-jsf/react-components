@@ -5,7 +5,7 @@ import { PizzaToppings } from './PizzaToppings';
 const App = () => {
 
   return (
-    <div>
+    <div className="p-3">
       <h1>
         Our React components...
       </h1>
