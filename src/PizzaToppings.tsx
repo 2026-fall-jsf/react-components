@@ -16,6 +16,22 @@ const dummyPizzaToppingsFromApi = [
     name: "Extra Cheese",
     price: 0.99,
   },
+  {
+    name: "Mushrooms",
+    price: 1.75,
+  },
+  {
+    name: "Green Peppers",
+    price: 1.25,
+  },
+  {
+    name: "Black Olives",
+    price: 1.50,
+  },
+  {
+    name: "Pineapple",
+    price: 2.00,
+  },
 ];
 
 export const PizzaToppings = () => {
@@ -35,6 +51,38 @@ export const PizzaToppings = () => {
 
   // bad, bad, bad, duplicated state, squint ! ! !
   // const [total, setTotal] = useState(0);
+
+  // EXERCISE #1 - duplicated state, derive it instead
+  const [selectedCount] = useState(0);
+
+  // EXERCISE #2 - duplicated state, derive it instead
+  const [hasSelection] = useState(false);
+
+  // EXERCISE #3 - duplicated state, derive it instead
+  const [allSelected] = useState(false);
+
+  // EXERCISE #4 - duplicated state, derive it instead
+  const [selectedNames] = useState("");
+
+  // EXERCISE #5 - duplicated state, derive it instead
+  const [unselectedNames] = useState(
+    dummyPizzaToppingsFromApi.map(x => x.name).join(", ")
+  );
+
+  // EXERCISE #6 - duplicated state, derive it instead
+  const [cheapestPrice] = useState(0);
+
+  // EXERCISE #7 - duplicated state, derive it instead
+  const [mostExpensivePrice] = useState(0);
+
+  // EXERCISE #8 - duplicated state, derive it instead
+  const [averagePrice] = useState(0);
+
+  // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
+  const [tax] = useState(0);
+
+  // EXERCISE #10 - duplicated state, derive it instead (total plus 8.25% tax)
+  const [totalWithTax] = useState(0);
 
   //
   // Calculated or derived state, and other helper functions and code...
@@ -131,6 +179,18 @@ export const PizzaToppings = () => {
         <h4>
           Total: ${ total.toFixed(2) }
         </h4>
+        <ul>
+          <li>Selected count: {selectedCount}</li>
+          <li>Has selection: {hasSelection ? "yes" : "no"}</li>
+          <li>All selected: {allSelected ? "yes" : "no"}</li>
+          <li>Selected: {selectedNames}</li>
+          <li>Not selected: {unselectedNames}</li>
+          <li>Cheapest: ${cheapestPrice.toFixed(2)}</li>
+          <li>Most expensive: ${mostExpensivePrice.toFixed(2)}</li>
+          <li>Average: ${averagePrice.toFixed(2)}</li>
+          <li>Tax: ${tax.toFixed(2)}</li>
+          <li>Total with tax: ${totalWithTax.toFixed(2)}</li>
+        </ul>
       </Card.Body>
     </Card>
   );
