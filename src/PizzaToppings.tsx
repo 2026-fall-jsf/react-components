@@ -55,8 +55,6 @@ export const PizzaToppings = () => {
   // EXERCISE #1 - duplicated state, derive it instead
   const [selectedCount, setSelectedCount] = useState(0);
 
-  // EXERCISE #2 - duplicated state, derive it instead
-  const [hasSelection, setHasSelection] = useState(false);
 
   // EXERCISE #3 - duplicated state, derive it instead
   const [allSelected, setAllSelected] = useState(false);
@@ -107,9 +105,6 @@ export const PizzaToppings = () => {
     // EXERCISE #1 - delete the state above and this line
     setSelectedCount(newChecked.length);
 
-    // EXERCISE #2 - delete the state above and this line
-    setHasSelection(newChecked.length > 0);
-
     // EXERCISE #3 - delete the state above and this line
     setAllSelected(newChecked.length === newPizzaToppingsState.length);
 
@@ -148,7 +143,10 @@ export const PizzaToppings = () => {
   // EXERCISE #1 - add: const selectedCount = ...; (number of checked toppings)
 
   // EXERCISE #2 - add: const hasSelection = ...; (true when at least one topping is checked)
-
+  const hasSelection = availablePizzaToppings.some(
+    x => x.checked
+  );
+  
   // EXERCISE #3 - add: const allSelected = ...; (true when every topping is checked)
 
   // EXERCISE #4 - add: const selectedNames = ...; (checked topping names joined with ", ")
