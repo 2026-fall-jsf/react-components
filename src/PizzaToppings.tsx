@@ -75,9 +75,6 @@ export const PizzaToppings = () => {
   // EXERCISE #7 - duplicated state, derive it instead
   const [mostExpensivePrice, setMostExpensivePrice] = useState(0);
 
-  // EXERCISE #8 - duplicated state, derive it instead
-  const [averagePrice, setAveragePrice] = useState(0);
-
   // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
   const [tax, setTax] = useState(0);
 
@@ -157,13 +154,16 @@ export const PizzaToppings = () => {
   // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
 
   // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
+    const newCheckedPricesForAverage = availablePizzaToppings
+      .filter(
+        x => x.checked
+      )
+    ;
 
-    const averagePrice = newCheckedPrices.reduce(
-      (newCheckedPrices, total) => newCheckedPrices + total.length
-        ? total / newCheckedPrices
-          ? newCheckedPrices.length
-            : 0
-    );
+    const averagePrice = newCheckedPricesForAverage.length > 0
+      ? total / newCheckedPricesForAverage.length
+      : 0
+    ;
 
   // EXERCISE #9 - add: const tax = ...; (8.25% of total)
 
