@@ -81,9 +81,6 @@ export const PizzaToppings = () => {
   // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
   const [tax, setTax] = useState(0);
 
-  // EXERCISE #10 - duplicated state, derive it instead (total plus 8.25% tax)
-  const [totalWithTax, setTotalWithTax] = useState(0);
-
   //
   // Calculated or derived state, and other helper functions and code...
   //
@@ -130,9 +127,6 @@ export const PizzaToppings = () => {
 
     // EXERCISE #9 - delete the state above and this line
     setTax(newTotal * 0.0825);
-
-    // EXERCISE #10 - delete the state above and this line
-    setTotalWithTax(newTotal * 1.0825);
   };
 
   const total = availablePizzaToppings
@@ -164,7 +158,7 @@ export const PizzaToppings = () => {
   // EXERCISE #9 - add: const tax = ...; (8.25% of total)
 
   // EXERCISE #10 - add: const totalWithTax = ...; (total plus 8.25% tax)
-
+    const totalWithTax = total + (total * .0825);
   //
   // Return the jsx...
   //
