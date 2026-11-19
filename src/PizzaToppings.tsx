@@ -69,8 +69,7 @@ export const PizzaToppings = () => {
     dummyPizzaToppingsFromApi.map(x => x.name).join(", ")
   );
 
-  // // EXERCISE #6 - duplicated state, derive it instead
-  // const [cheapestPrice, setCheapestPrice] = useState(0);
+
 
   // EXERCISE #7 - duplicated state, derive it instead
   const [mostExpensivePrice, setMostExpensivePrice] = useState(0);
@@ -119,8 +118,7 @@ export const PizzaToppings = () => {
     // EXERCISE #5 - delete the state above and this line
     setUnselectedNames(newPizzaToppingsState.filter(x => !x.checked).map(x => x.name).join(", "));
 
-    // // EXERCISE #6 - delete the state above and this line
-    // setCheapestPrice(newCheckedPrices.length ? Math.min(...newCheckedPrices) : 0);
+  
 
     // EXERCISE #7 - delete the state above and this line
     setMostExpensivePrice(newCheckedPrices.length ? Math.max(...newCheckedPrices) : 0);
