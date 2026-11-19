@@ -78,8 +78,7 @@ export const PizzaToppings = () => {
   // EXERCISE #8 - duplicated state, derive it instead
   const [averagePrice, setAveragePrice] = useState(0);
 
-  // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
-  const [tax, setTax] = useState(0);
+
 
   // EXERCISE #10 - duplicated state, derive it instead (total plus 8.25% tax)
   const [totalWithTax, setTotalWithTax] = useState(0);
@@ -128,8 +127,7 @@ export const PizzaToppings = () => {
     // EXERCISE #8 - delete the state above and this line
     setAveragePrice(newCheckedPrices.length ? newTotal / newCheckedPrices.length : 0);
 
-    // EXERCISE #9 - delete the state above and this line
-    setTax(newTotal * 0.0825);
+
 
     // EXERCISE #10 - delete the state above and this line
     setTotalWithTax(newTotal * 1.0825);
@@ -162,6 +160,8 @@ export const PizzaToppings = () => {
   // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
 
   // EXERCISE #9 - add: const tax = ...; (8.25% of total)
+
+  const tax = total * 0.0825;
 
   // EXERCISE #10 - add: const totalWithTax = ...; (total plus 8.25% tax)
 
