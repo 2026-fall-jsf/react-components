@@ -56,7 +56,7 @@ export const EgaritaluisComponent = () => {
   return (
     <Card className="mt-4" style={{ maxWidth: 420 }}>
       <Card.Body>
-        <Card.Title>🚀 Let's go to the moon Dog</Card.Title>
+        <Card.Title>🚀 Let's go to the moon</Card.Title>
         <Card.Text>
           Click the button to launch.
         </Card.Text>
