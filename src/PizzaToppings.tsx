@@ -125,9 +125,6 @@ export const PizzaToppings = () => {
     // EXERCISE #7 - delete the state above and this line
     setMostExpensivePrice(newCheckedPrices.length ? Math.max(...newCheckedPrices) : 0);
 
-    // EXERCISE #8 - delete the state above and this line
-    setAveragePrice(newCheckedPrices.length ? newTotal / newCheckedPrices.length : 0);
-
     // EXERCISE #9 - delete the state above and this line
     setTax(newTotal * 0.0825);
 
@@ -160,6 +157,13 @@ export const PizzaToppings = () => {
   // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
 
   // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
+
+    const averagePrice = newCheckedPrices.reduce(
+      (newCheckedPrices, total) => newCheckedPrices + total.length
+        ? total / newCheckedPrices
+          ? newCheckedPrices.length
+            : 0
+    );
 
   // EXERCISE #9 - add: const tax = ...; (8.25% of total)
 
