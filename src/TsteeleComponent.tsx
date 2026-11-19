@@ -5,7 +5,7 @@ export const TsteeleComponent = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <Card className='mt-4' style={{ maxWidth: '24rem' }}>
+    <Card className='mt-4'>
       <Card.Body>
         <Card.Title>React-Bootstrap Modal</Card.Title>
         <Card.Text>Press the button to show a modal.</Card.Text>
