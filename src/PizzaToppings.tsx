@@ -148,7 +148,7 @@ export const PizzaToppings = () => {
   // EXERCISE #2 - add: const hasSelection = ...; (true when at least one topping is checked)
 
   // EXERCISE #3 - add: const allSelected = ...; (true when every topping is checked)
-  const allSelected = availablePizzaToppings.length > 0 && availablePizzaToppings.every(x => x.checked);
+  const allSelected = availablePizzaToppings.every(x => x.checked);
 
   // EXERCISE #4 - add: const selectedNames = ...; (checked topping names joined with ", ")
 
