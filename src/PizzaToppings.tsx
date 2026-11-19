@@ -72,9 +72,6 @@ export const PizzaToppings = () => {
   // EXERCISE #6 - duplicated state, derive it instead
   const [cheapestPrice, setCheapestPrice] = useState(0);
 
-  // EXERCISE #7 - duplicated state, derive it instead
-  const [mostExpensivePrice, setMostExpensivePrice] = useState(0);
-
   // EXERCISE #8 - duplicated state, derive it instead
   const [averagePrice, setAveragePrice] = useState(0);
 
@@ -122,9 +119,6 @@ export const PizzaToppings = () => {
     // EXERCISE #6 - delete the state above and this line
     setCheapestPrice(newCheckedPrices.length ? Math.min(...newCheckedPrices) : 0);
 
-    // EXERCISE #7 - delete the state above and this line
-    setMostExpensivePrice(newCheckedPrices.length ? Math.max(...newCheckedPrices) : 0);
-
     // EXERCISE #8 - delete the state above and this line
     setAveragePrice(newCheckedPrices.length ? newTotal / newCheckedPrices.length : 0);
 
@@ -142,8 +136,7 @@ export const PizzaToppings = () => {
     .reduce(
       (acc, x) => acc + x.price,
       0,
-    )
-  ;
+    );
 
   // EXERCISE #1 - add: const selectedCount = ...; (number of checked toppings)
 
@@ -158,6 +151,14 @@ export const PizzaToppings = () => {
   // EXERCISE #6 - add: const cheapestPrice = ...; (lowest price among checked toppings, 0 if none)
 
   // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
+  const mostExpensivePrice = availablePizzaToppings
+    .filter(
+      x => x.checked
+    )
+    .reduce(
+      (acc, x) => Math.max(acc, x.price),
+        0,
+    );
 
   // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
 
