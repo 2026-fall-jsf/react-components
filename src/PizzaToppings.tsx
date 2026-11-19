@@ -52,9 +52,6 @@ export const PizzaToppings = () => {
   // bad, bad, bad, duplicated state, squint ! ! !
   // const [total, setTotal] = useState(0);
 
-  // EXERCISE #1 - duplicated state, derive it instead
-  const [selectedCount, setSelectedCount] = useState(0);
-
   // EXERCISE #2 - duplicated state, derive it instead
   const [hasSelection, setHasSelection] = useState(false);
 
@@ -105,7 +102,7 @@ export const PizzaToppings = () => {
     );
 
     // EXERCISE #1 - delete the state above and this line
-    setSelectedCount(newChecked.length);
+    // setSelectedCount(newChecked.length);
 
     // EXERCISE #2 - delete the state above and this line
     setHasSelection(newChecked.length > 0);
@@ -146,7 +143,9 @@ export const PizzaToppings = () => {
   ;
 
   // EXERCISE #1 - add: const selectedCount = ...; (number of checked toppings)
-
+    const selectedCount = availablePizzaToppings.filter(
+        x => x.checked
+    ).length
   // EXERCISE #2 - add: const hasSelection = ...; (true when at least one topping is checked)
 
   // EXERCISE #3 - add: const allSelected = ...; (true when every topping is checked)
