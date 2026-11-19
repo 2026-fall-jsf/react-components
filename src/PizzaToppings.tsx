@@ -154,14 +154,20 @@ export const PizzaToppings = () => {
   // EXERCISE #5 - add: const unselectedNames = ...; (unchecked topping names joined with ", ")
 
   // EXERCISE #6 - add: const cheapestPrice = ...; (lowest price among checked toppings, 0 if none)
-  const cheapestPrice = availablePizzaToppings 
-    .filter(x => x.checked)
-    .map(x => x.price)
-    ? Math.min(...availablePizzaToppings
-      .filter(x => x.checked)
-      .map(x => x.price)
-    ) 
-    : 0; 
+  const chosenPrices = availablePizzaToppings
+    .filter(
+      x => x.checked
+    )
+    .map(
+      x => x.price
+    )
+  ;
+
+  const cheapestPrice = 
+    chosenPrices.length > 0
+      ? Math.min(...chosenPrices) 
+      : 0
+    ; 
 
   // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
 
