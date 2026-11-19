@@ -55,11 +55,8 @@ export const PizzaToppings = () => {
   // EXERCISE #1 - duplicated state, derive it instead
   const [selectedCount, setSelectedCount] = useState(0);
 
-  // EXERCISE #2 - duplicated state, derive it instead
-  const [hasSelection, setHasSelection] = useState(false);
 
   // EXERCISE #3 - duplicated state, derive it instead
-  const [allSelected, setAllSelected] = useState(false);
 
   // EXERCISE #4 - duplicated state, derive it instead
   const [selectedNames, setSelectedNames] = useState("");
@@ -69,20 +66,10 @@ export const PizzaToppings = () => {
     dummyPizzaToppingsFromApi.map(x => x.name).join(", ")
   );
 
-  // EXERCISE #6 - duplicated state, derive it instead
-  const [cheapestPrice, setCheapestPrice] = useState(0);
 
-  // EXERCISE #7 - duplicated state, derive it instead
-  const [mostExpensivePrice, setMostExpensivePrice] = useState(0);
-
-  // EXERCISE #8 - duplicated state, derive it instead
-  const [averagePrice, setAveragePrice] = useState(0);
 
   // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
 
-
-  // EXERCISE #10 - duplicated state, derive it instead (total plus 8.25% tax)
-  const [totalWithTax, setTotalWithTax] = useState(0);
 
   //
   // Calculated or derived state, and other helper functions and code...
@@ -107,32 +94,22 @@ export const PizzaToppings = () => {
     // EXERCISE #1 - delete the state above and this line
     setSelectedCount(newChecked.length);
 
-    // EXERCISE #2 - delete the state above and this line
-    setHasSelection(newChecked.length > 0);
-
     // EXERCISE #3 - delete the state above and this line
-    setAllSelected(newChecked.length === newPizzaToppingsState.length);
-
+   
     // EXERCISE #4 - delete the state above and this line
     setSelectedNames(newChecked.map(x => x.name).join(", "));
 
     // EXERCISE #5 - delete the state above and this line
     setUnselectedNames(newPizzaToppingsState.filter(x => !x.checked).map(x => x.name).join(", "));
 
-    // EXERCISE #6 - delete the state above and this line
-    setCheapestPrice(newCheckedPrices.length ? Math.min(...newCheckedPrices) : 0);
-
-    // EXERCISE #7 - delete the state above and this line
-    setMostExpensivePrice(newCheckedPrices.length ? Math.max(...newCheckedPrices) : 0);
-
-    // EXERCISE #8 - delete the state above and this line
-    setAveragePrice(newCheckedPrices.length ? newTotal / newCheckedPrices.length : 0);
+  
 
     // EXERCISE #9 - delete the state above and this line
-
+    setTax(newTotal * 0.0825);
 
     // EXERCISE #10 - delete the state above and this line
     setTotalWithTax(newTotal * 1.0825);
+
   };
 
   const total = availablePizzaToppings
@@ -142,29 +119,64 @@ export const PizzaToppings = () => {
     .reduce(
       (acc, x) => acc + x.price,
       0,
-    )
-  ;
+    );
 
   // EXERCISE #1 - add: const selectedCount = ...; (number of checked toppings)
 
   // EXERCISE #2 - add: const hasSelection = ...; (true when at least one topping is checked)
-
+  const hasSelection = availablePizzaToppings.some(
+    x => x.checked
+  );
+  
   // EXERCISE #3 - add: const allSelected = ...; (true when every topping is checked)
+  const allSelected = availablePizzaToppings.every(x => x.checked);
 
   // EXERCISE #4 - add: const selectedNames = ...; (checked topping names joined with ", ")
 
   // EXERCISE #5 - add: const unselectedNames = ...; (unchecked topping names joined with ", ")
 
   // EXERCISE #6 - add: const cheapestPrice = ...; (lowest price among checked toppings, 0 if none)
+  const chosenPrices = availablePizzaToppings
+    .filter(
+      x => x.checked
+    )
+    .map(
+      x => x.price
+    )
+  ;
+
+  const cheapestPrice = 
+    chosenPrices.length > 0
+      ? Math.min(...chosenPrices) 
+      : 0
+    ; 
 
   // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
+  const mostExpensivePrice = availablePizzaToppings
+    .filter(
+      x => x.checked
+    )
+    .reduce(
+      (acc, x) => Math.max(acc, x.price),
+        0,
+    );
 
   // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
+    const newCheckedPricesForAverage = availablePizzaToppings
+      .filter(
+        x => x.checked
+      )
+    ;
+
+    const averagePrice = newCheckedPricesForAverage.length > 0
+      ? total / newCheckedPricesForAverage.length
+      : 0
+    ;
 
   // EXERCISE #9 - add: const tax = ...; (8.25% of total)
     const tax = total * 0.0825;
   // EXERCISE #10 - add: const totalWithTax = ...; (total plus 8.25% tax)
-
+    const totalWithTax = total + (total * .0825);
   //
   // Return the jsx...
   //
