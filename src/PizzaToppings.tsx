@@ -5,32 +5,32 @@ import { useState } from "react";
 
 const dummyPizzaToppingsFromApi = [
   {
-    name: "Pepperoni",
-    price: 3.50,
-  },
-  {
-    name: "Sausage",
-    price: 4.25,
+    name: "Black Olives",
+    price: 1.50,
   },
   {
     name: "Extra Cheese",
     price: 0.99,
   },
   {
-    name: "Mushrooms",
-    price: 1.75,
-  },
-  {
     name: "Green Peppers",
     price: 1.25,
   },
   {
-    name: "Black Olives",
-    price: 1.50,
+    name: "Mushrooms",
+    price: 1.75,
+  },
+  {
+    name: "Pepperoni",
+    price: 3.50,
   },
   {
     name: "Pineapple",
     price: 2.00,
+  },
+  {
+    name: "Sausage",
+    price: 4.25,
   },
 ];
 
@@ -53,40 +53,88 @@ export const PizzaToppings = () => {
   // const [total, setTotal] = useState(0);
 
   // EXERCISE #1 - duplicated state, derive it instead
-  const [selectedCount] = useState(0);
+  const [selectedCount, setSelectedCount] = useState(0);
 
   // EXERCISE #2 - duplicated state, derive it instead
-  const [hasSelection] = useState(false);
+  const [hasSelection, setHasSelection] = useState(false);
 
   // EXERCISE #3 - duplicated state, derive it instead
-  const [allSelected] = useState(false);
+  const [allSelected, setAllSelected] = useState(false);
 
   // EXERCISE #4 - duplicated state, derive it instead
-  const [selectedNames] = useState("");
+  const [selectedNames, setSelectedNames] = useState("");
 
   // EXERCISE #5 - duplicated state, derive it instead
-  const [unselectedNames] = useState(
+  const [unselectedNames, setUnselectedNames] = useState(
     dummyPizzaToppingsFromApi.map(x => x.name).join(", ")
   );
 
   // EXERCISE #6 - duplicated state, derive it instead
-  const [cheapestPrice] = useState(0);
+  const [cheapestPrice, setCheapestPrice] = useState(0);
 
   // EXERCISE #7 - duplicated state, derive it instead
-  const [mostExpensivePrice] = useState(0);
+  const [mostExpensivePrice, setMostExpensivePrice] = useState(0);
 
   // EXERCISE #8 - duplicated state, derive it instead
-  const [averagePrice] = useState(0);
+  const [averagePrice, setAveragePrice] = useState(0);
 
   // EXERCISE #9 - duplicated state, derive it instead (tax rate 8.25%)
-  const [tax] = useState(0);
+  const [tax, setTax] = useState(0);
 
   // EXERCISE #10 - duplicated state, derive it instead (total plus 8.25% tax)
-  const [totalWithTax] = useState(0);
+  const [totalWithTax, setTotalWithTax] = useState(0);
 
   //
   // Calculated or derived state, and other helper functions and code...
   //
+  const updateToppings = (newPizzaToppingsState: typeof availablePizzaToppings) => {
+
+    setAvailablePizzaToppings(newPizzaToppingsState);
+    
+    const newChecked = newPizzaToppingsState.filter(
+      x => x.checked
+    );
+
+    const newCheckedPrices = newChecked.map(
+      x => x.price
+    );
+
+    const newTotal = newCheckedPrices.reduce(
+      (acc, p) => acc + p, 
+      0,
+    );
+
+    // EXERCISE #1 - delete the state above and this line
+    setSelectedCount(newChecked.length);
+
+    // EXERCISE #2 - delete the state above and this line
+    setHasSelection(newChecked.length > 0);
+
+    // EXERCISE #3 - delete the state above and this line
+    setAllSelected(newChecked.length === newPizzaToppingsState.length);
+
+    // EXERCISE #4 - delete the state above and this line
+    setSelectedNames(newChecked.map(x => x.name).join(", "));
+
+    // EXERCISE #5 - delete the state above and this line
+    setUnselectedNames(newPizzaToppingsState.filter(x => !x.checked).map(x => x.name).join(", "));
+
+    // EXERCISE #6 - delete the state above and this line
+    setCheapestPrice(newCheckedPrices.length ? Math.min(...newCheckedPrices) : 0);
+
+    // EXERCISE #7 - delete the state above and this line
+    setMostExpensivePrice(newCheckedPrices.length ? Math.max(...newCheckedPrices) : 0);
+
+    // EXERCISE #8 - delete the state above and this line
+    setAveragePrice(newCheckedPrices.length ? newTotal / newCheckedPrices.length : 0);
+
+    // EXERCISE #9 - delete the state above and this line
+    setTax(newTotal * 0.0825);
+
+    // EXERCISE #10 - delete the state above and this line
+    setTotalWithTax(newTotal * 1.0825);
+  };
+
   const total = availablePizzaToppings
     .filter(
       x => x.checked
@@ -96,6 +144,26 @@ export const PizzaToppings = () => {
       0,
     )
   ;
+
+  // EXERCISE #1 - add: const selectedCount = ...; (number of checked toppings)
+
+  // EXERCISE #2 - add: const hasSelection = ...; (true when at least one topping is checked)
+
+  // EXERCISE #3 - add: const allSelected = ...; (true when every topping is checked)
+
+  // EXERCISE #4 - add: const selectedNames = ...; (checked topping names joined with ", ")
+
+  // EXERCISE #5 - add: const unselectedNames = ...; (unchecked topping names joined with ", ")
+
+  // EXERCISE #6 - add: const cheapestPrice = ...; (lowest price among checked toppings, 0 if none)
+
+  // EXERCISE #7 - add: const mostExpensivePrice = ...; (highest price among checked toppings, 0 if none)
+
+  // EXERCISE #8 - add: const averagePrice = ...; (average price of checked toppings, 0 if none)
+
+  // EXERCISE #9 - add: const tax = ...; (8.25% of total)
+
+  // EXERCISE #10 - add: const totalWithTax = ...; (total plus 8.25% tax)
 
   //
   // Return the jsx...
@@ -114,7 +182,7 @@ export const PizzaToppings = () => {
           <Button
             variant="outline-primary"
             onClick={
-              () => setAvailablePizzaToppings(
+              () => updateToppings(
                 availablePizzaToppings.map(
                   x => (
                     {
@@ -131,7 +199,7 @@ export const PizzaToppings = () => {
           <Button
             variant="outline-secondary"
             onClick={
-              () => setAvailablePizzaToppings(
+              () => updateToppings(
                 availablePizzaToppings.map(
                   x => (
                     {
@@ -144,7 +212,7 @@ export const PizzaToppings = () => {
             }
           >
             None
-          </Button>          
+          </Button>
         </div>
         <Form
           className="mb-3"
@@ -158,7 +226,7 @@ export const PizzaToppings = () => {
                   label={`${x.name} ($${x.price.toFixed(2)})`}
                   checked={x.checked}
                   onChange={
-                    () => setAvailablePizzaToppings(
+                    () => updateToppings(
                       availablePizzaToppings.map(
                         y => (
                           {
