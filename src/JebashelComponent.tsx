@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -112,16 +112,60 @@ const generateCharacter = (level: number) => {
 
 const randomLevel = () => Math.floor(Math.random() * maxLevel) + 1;
 
+const rollDurationMs = 1400;
+// Vertical positions (% of viewport height) for each die
+const diceOffsets = [30, 45, 60, 38, 52];
+
+// Dice start off-screen right, tumble left across the page and fade out
+const diceCss = `
+@keyframes die-roll {
+  from { transform: translateX(0) rotate(0deg); opacity: 1; }
+  to { transform: translateX(-120vw) rotate(-1080deg); opacity: 0.2; }
+}
+.rolling-die {
+  position: fixed;
+  right: -4rem;
+  font-size: 3rem;
+  z-index: 2000;
+  pointer-events: none;
+  animation: die-roll 1.2s ease-out forwards;
+}
+`;
+
 export const JebashelComponent = () => {
   // "random" picks a new level each roll
   const [levelChoice, setLevelChoice] = useState<"random" | number>(1);
   const [character, setCharacter] = useState(() => generateCharacter(1));
+  const [rolling, setRolling] = useState(false);
 
-  const roll = () =>
-    setCharacter(generateCharacter(levelChoice === "random" ? randomLevel() : levelChoice));
+  // Reveal the new character once the dice have finished rolling
+  useEffect(() => {
+    if (!rolling) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      setCharacter(generateCharacter(levelChoice === "random" ? randomLevel() : levelChoice));
+      setRolling(false);
+    }, rollDurationMs);
+    return () => clearTimeout(timer);
+  }, [rolling, levelChoice]);
 
   return (
     <Card className="mt-4" style={{ maxWidth: "24rem" }}>
+      <style>{diceCss}</style>
+      {
+        rolling && diceOffsets.map(
+          (top, i) => (
+            <span
+              key={i}
+              className="rolling-die"
+              style={{ top: `${top}%`, animationDelay: `${i * 120}ms` }}
+            >
+              🎲
+            </span>
+          )
+        )
+      }
       <Card.Header as="h2" className="h5">
         Random D&amp;D Character
       </Card.Header>
@@ -180,7 +224,7 @@ export const JebashelComponent = () => {
               )
           }
         </div>
-        <Button onClick={roll}>
+        <Button onClick={() => setRolling(true)} disabled={rolling}>
           Roll new character
         </Button>
       </Card.Body>
