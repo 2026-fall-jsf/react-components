@@ -1,6 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PizzaToppings } from './PizzaToppings';
+import { JebashelComponent } from './JebashelComponent';
 import { MlyComponent } from './MlyComponent';
 import { ELeeComponent } from './ELeeComponent';
 import { EgaritaluisComponent } from './egaritaluisComponent';
@@ -20,6 +21,7 @@ const App = () => {
       <EgaritaluisComponent />
       <ELeeComponent />
       <MlyComponent />      
+      <JebashelComponent />
     </div>
   );
 };
