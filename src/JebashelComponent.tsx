@@ -42,9 +42,31 @@ const hitDie: Record<string, number> = {
   Sorcerer: 6, Wizard: 6,
 };
 
+const subclasses: Record<string, string[]> = {
+  Barbarian: ["Path of the Berserker", "Path of the Totem Warrior", "Path of the Wild Heart"],
+  Bard: ["College of Lore", "College of Valor", "College of Glamour"],
+  Cleric: ["Life Domain", "Light Domain", "Trickery Domain", "War Domain"],
+  Druid: ["Circle of the Land", "Circle of the Moon", "Circle of the Stars"],
+  Fighter: ["Champion", "Battle Master", "Eldritch Knight"],
+  Monk: ["Way of the Open Hand", "Way of Shadow", "Way of the Four Elements"],
+  Paladin: ["Oath of Devotion", "Oath of the Ancients", "Oath of Vengeance"],
+  Ranger: ["Hunter", "Beast Master", "Gloom Stalker"],
+  Rogue: ["Thief", "Assassin", "Arcane Trickster"],
+  Sorcerer: ["Draconic Bloodline", "Wild Magic", "Divine Soul"],
+  Warlock: ["The Fiend", "The Archfey", "The Great Old One"],
+  Wizard: ["School of Evocation", "School of Abjuration", "School of Illusion"],
+};
+
+// Level at which each class picks its subclass; everyone else picks at 3
+const subclassLevel: Record<string, number> = {
+  Cleric: 1, Sorcerer: 1, Warlock: 1, Druid: 2, Wizard: 2,
+};
+
 const maxLevel = 20;
 // Levels that grant an Ability Score Improvement, which we spend on a feat
 const featLevels = [4, 8, 12, 16, 19];
+// Fighters get two extra ASIs
+const fighterFeatLevels = [...featLevels, 6, 14];
 
 const shuffle = <T,>(items: T[]) => [...items].sort(() => Math.random() - 0.5);
 
@@ -67,12 +89,18 @@ const generateCharacter = (level: number) => {
     ["Ranger", "Druid", "Bard", "Rogue", "Warlock", "Barbarian", "Monk"].includes(characterClass) ? 12 : 10;
   const armorClass = armorBase + (armorBase >= 16 ? 0 : dexMod);
 
-  const featCount = featLevels.filter(l => l <= level).length;
+  const featCount = (characterClass === "Fighter" ? fighterFeatLevels : featLevels)
+    .filter(l => l <= level).length;
+
+  const subclass = level >= (subclassLevel[characterClass] ?? 3)
+    ? pick(subclasses[characterClass])
+    : undefined;
 
   return {
     name: `${pick(firstNames)} ${pick(lastNames)}`,
     race: pick(races),
     characterClass,
+    subclass,
     alignment: pick(alignments),
     level,
     abilities,
@@ -117,6 +145,7 @@ export const JebashelComponent = () => {
         <Card.Title>{character.name}</Card.Title>
         <Card.Subtitle className="mb-3 text-muted">
           Level {character.level} {character.race} {character.characterClass}
+          {character.subclass && ` (${character.subclass})`}
           {" • "}
           {character.alignment}
         </Card.Subtitle>
